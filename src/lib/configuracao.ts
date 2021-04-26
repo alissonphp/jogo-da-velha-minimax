@@ -12,4 +12,9 @@ export default class Configuracao {
   maquina = "O";
   jogador = "X";
   inicia = this.jogador;
+  pontos = {
+    0: 10,
+    X: -10,
+    empate: 0,
+  };
 }

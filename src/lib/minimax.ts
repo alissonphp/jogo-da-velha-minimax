@@ -1,64 +1,65 @@
+import Configuracao from "./configuracao";
+
 export default class Minimax {
-  tabuleiro: string[];
+  tabuleiro: any;
+  configuracao: Configuracao = new Configuracao();
+
   constructor(tabuleiro: string[]) {
     this.tabuleiro = tabuleiro;
   }
 
   pesquisarMelhorMovimento() {
-    let bestScore = -Infinity;
-    let move;
+    let melhorCenario = -Infinity;
+    let movimento;
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        // Is the spot available?
-        if (board[i][j] == "") {
-          board[i][j] = ai;
-          let score = minimax(board, 0, false);
-          board[i][j] = "";
-          if (score > bestScore) {
-            bestScore = score;
-            move = { i, j };
+        if (this.tabuleiro[i][j] == "") {
+          this.tabuleiro[i][j] = this.configuracao.maquina;
+          let score = this.minimax(0, false);
+          this.tabuleiro[i][j] = "";
+          if (score > melhorCenario) {
+            melhorCenario = score;
+            movimento = { i, j };
           }
         }
       }
     }
-    board[move.i][move.j] = ai;
-    currentPlayer = human;
+    this.tabuleiro[movimento.i][movimento.j] = this.configuracao.maquina;
+    currentPlayer = this.configuracao.jogador;
   }
 
-  minimax() {
+  minimax(profundidade: number, maximizar: boolean) {
     let result = checkWinner();
     if (result !== null) {
-      return scores[result];
+      return this.configuracao.pontos[result];
     }
 
-    if (isMaximizing) {
-      let bestScore = -Infinity;
+    if (maximizar) {
+      let melhorCenario = -Infinity;
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-          // Is the spot available?
-          if (board[i][j] == "") {
-            board[i][j] = ai;
-            let score = minimax(board, depth + 1, false);
-            board[i][j] = "";
-            bestScore = max(score, bestScore);
+          if (this.tabuleiro[i][j] == "") {
+            this.tabuleiro[i][j] = this.configuracao.maquina;
+            let score = this.minimax(profundidade + 1, false);
+            this.tabuleiro[i][j] = "";
+            melhorCenario = Math.max(score, melhorCenario);
           }
         }
       }
-      return bestScore;
+      return melhorCenario;
     } else {
-      let bestScore = Infinity;
+      let melhorCenario = Infinity;
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-          // Is the spot available?
-          if (board[i][j] == "") {
-            board[i][j] = human;
-            let score = minimax(board, depth + 1, true);
-            board[i][j] = "";
-            bestScore = min(score, bestScore);
+          if (this.tabuleiro[i][j] == "") {
+            this.tabuleiro[i][j] = this.configuracao.jogador;
+            let score = this.minimax(profundidade + 1, true);
+            this.tabuleiro[i][j] = "";
+            melhorCenario = Math.min(score, melhorCenario);
           }
         }
       }
-      return bestScore;
+      return melhorCenario;
     }
   }
 }
