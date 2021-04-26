@@ -1,12 +1,13 @@
 import { Command, flags } from "@oclif/command";
-import Configuracao from "./lib/configuracao";
-import VerificarVitoria from "./lib/verificar-vitoria";
 import cli from "cli-ux";
 import * as notifier from "node-notifier";
-import { table } from "console";
+
+import Configuracao from "./lib/configuracao";
+import VerificarVitoria from "./lib/verificar-vitoria";
 
 class JogoDaVelha extends Command {
-  static description = "jogo da velha aplicando o algoritimo minimax";
+  static description =
+    "Jogo da velha aplicando o algoritimo minimax para a disciplina de Estruturas de Dados Avançadas";
 
   nome: string = "";
 
@@ -15,16 +16,12 @@ class JogoDaVelha extends Command {
   static flags = {
     version: flags.version({ char: "v" }),
     ajuda: flags.help({ char: "h" }),
-    marcar: flags.string({
-      char: "m",
-      description: "marca uma coordenada no tabuleiro",
-    }),
   };
 
   static args = [{ name: "jogar" }];
 
   async run() {
-    const { args, flags } = this.parse(JogoDaVelha);
+    const { args } = this.parse(JogoDaVelha);
 
     if (args.jogar) {
       this.log("Vamos começar!!");

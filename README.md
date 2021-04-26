@@ -24,9 +24,9 @@ npm install
 ## Executando
 1. bastar chamar o executável da pasta bin passando os parâmetros desejados
 ```shell
-./bin/run iniciar
+./bin/run jogar
 ```
 2. caso esteja no Windows:
 ```shell
-./bin/run.cmd iniciar
+./bin/run.cmd jogar
 ```

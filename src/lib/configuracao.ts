@@ -11,7 +11,7 @@ export default class Configuracao {
   ];
   maquina = "O";
   jogador = "X";
-  inicia = this.jogador;
+  turno = this.jogador;
   pontos = {
     0: 10,
     X: -10,
