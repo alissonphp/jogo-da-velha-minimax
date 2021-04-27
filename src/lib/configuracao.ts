@@ -13,8 +13,8 @@ export default class Configuracao {
   jogador = "X";
   turno = this.jogador;
   pontos = {
-    0: 10,
-    X: -10,
-    empate: 0,
+    '0': 10,
+    'X': -10,
+    'empate': 0,
   };
 }

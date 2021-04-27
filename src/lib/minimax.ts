@@ -1,16 +1,18 @@
 import Configuracao from "./configuracao";
+import VerificarVitoria from "./verificar-vitoria";
 
 export default class Minimax {
   tabuleiro: any;
   configuracao: Configuracao = new Configuracao();
+  verificador: VerificarVitoria;
 
-  constructor(tabuleiro: string[]) {
+  constructor(tabuleiro: string[][]) {
     this.tabuleiro = tabuleiro;
+    this.verificador = new VerificarVitoria(this.tabuleiro);
   }
 
   pesquisarMelhorMovimento() {
     let melhorCenario = -Infinity;
-    let movimento;
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         if (this.tabuleiro[i][j] == "") {
@@ -19,19 +21,23 @@ export default class Minimax {
           this.tabuleiro[i][j] = "";
           if (score > melhorCenario) {
             melhorCenario = score;
-            movimento = { i, j };
+            this.tabuleiro[i][j] = this.configuracao.maquina;
           }
         }
       }
     }
-    this.tabuleiro[movimento.i][movimento.j] = this.configuracao.maquina;
-    currentPlayer = this.configuracao.jogador;
   }
 
   minimax(profundidade: number, maximizar: boolean) {
-    let result = checkWinner();
-    if (result !== null) {
-      return this.configuracao.pontos[result];
+    const checarGanhador: string = this.verificador.verificar();
+    if (checarGanhador !== null) {
+      if (checarGanhador == "X") {
+        return -10;
+      } else if (checarGanhador == "0") {
+        return 10;
+      } else {
+        return 0;
+      }
     }
 
     if (maximizar) {
