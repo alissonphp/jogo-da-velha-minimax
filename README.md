@@ -30,3 +30,7 @@ npm install
 ```shell
 ./bin/run.cmd jogar
 ```
+
+## Demonstração
+
+![Imagem](./docs/images/running.gif)
